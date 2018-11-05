@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: 
+  overview: 
+  release_date: 
+  inventory: MyString
+
+two:
+  title: 
+  overview: 
+  release_date: 
+  inventory: MyString
