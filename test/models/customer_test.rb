@@ -21,36 +21,51 @@ describe Customer do
       complete_customer.name = nil
       result = complete_customer.valid?
       result.must_equal false
+      expect(complete_customer.errors).must_include "name"
     end
 
     it "is invalid if registered_at is missing" do
-
+      complete_customer.registered_at = nil
+      result = complete_customer.valid?
+      result.must_equal false
+      expect(complete_customer.errors).must_include "registered_at"
     end
 
     it "is invalid if address is missing" do
-
+      complete_customer.address = nil
+      result = complete_customer.valid?
+      result.must_equal false
+      expect(complete_customer.errors).must_include "address"
     end
 
     it "is invalid if city is missing" do
-
+      complete_customer.city = nil
+      result = complete_customer.valid?
+      result.must_equal false
+      expect(complete_customer.errors).must_include "city"
     end
 
     it "is invalid if state is missing" do
-
+      complete_customer.state = nil
+      result = complete_customer.valid?
+      result.must_equal false
+      expect(complete_customer.errors).must_include "state"
     end
 
     it "is invalid if postal code is missing" do
-
+      complete_customer.postal_code = nil
+      result = complete_customer.valid?
+      result.must_equal false
+      expect(complete_customer.errors).must_include "postal_code"
     end
 
     it "is invalid if phone is missing" do
-
+      complete_customer.phone = nil
+      result = complete_customer.valid?
+      result.must_equal false
+      expect(complete_customer.errors).must_include "phone"
     end
 
-
-    it "is invalid if missing a field" do
-
-    end
   end
 
   describe "relationships" do
