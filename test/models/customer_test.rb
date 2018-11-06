@@ -71,12 +71,22 @@ describe Customer do
   end
 
   describe "relationships" do
+    let(:movie) { movies(:funny) }
+    let(:customer) { customers(:shelan) }
 
-    it "can have many movies" do
+    it "has a list of movies" do
       # Act = Add a movie?
-
-
+      customer.must_respond_to :movies
+      customer.movies.each do |movie|
+        movie.must_be_kind_of Movie
+      end
     end
 
+    it "has a list of rentals" do
+      customer.must_respond_to :rentals
+      customer.rentals.each do |rental|
+        rental.must_be_kind_of Rental
+      end
+    end
   end
-end
+end 
