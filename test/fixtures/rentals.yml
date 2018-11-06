@@ -8,8 +8,8 @@ one:
   customer: shelan
 
 two:
-  checkout_date: Date.today - 3
-  checkin_date: Date.today
+  checkout_date: <% Date.today - 3 %>
+  checkin_date: <% Date.today %> 
   due_date: checkout_date + 7
   movie: romantic
   customer: cassy

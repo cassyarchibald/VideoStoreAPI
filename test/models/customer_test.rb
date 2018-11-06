@@ -1,9 +1,7 @@
 require "test_helper"
+require 'pry'
 
 describe Customer do
-  # Add fixture let blocks here
-
-
   describe "validations" do
     let(:complete_customer) {
       Customer.new name: "Cassy",
@@ -67,16 +65,24 @@ describe Customer do
       result.must_equal false
       expect(complete_customer.errors).must_include "phone"
     end
-
   end
 
   describe "relationships" do
+    let(:movie) { movies(:funny) }
+    let(:customer) { customers(:shelan) }
 
-    it "can have many movies" do
-      # Act = Add a movie?
-
-
+    it "has a list of movies" do
+      customer.must_respond_to :movies
+      customer.movies.each do |movie|
+        movie.must_be_kind_of Movie
+      end
     end
 
+    it "has a list of rentals" do
+      customer.must_respond_to :rentals
+      customer.rentals.each do |rental|
+        rental.must_be_kind_of Rental
+      end
+    end
   end
 end
