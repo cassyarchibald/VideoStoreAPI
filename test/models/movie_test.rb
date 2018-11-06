@@ -48,6 +48,7 @@ describe Movie do
 
     it "has many customers through rental" do
       #Act
+      binding.pry
       romantic_movie.customers << Customer.first #add 1st customer to a movie's customer
       customers = romantic_movie.customers #customers = movie's customers
 

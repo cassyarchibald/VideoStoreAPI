@@ -2,7 +2,7 @@
 
 cassy:
   name: "Cassy"
-  registered_at: Date.today - 30
+  registered_at: <% Date.today - 30 %>
   address: "123 Sunny Lane"
   city: "Seattle"
   state: "Washington"
@@ -11,7 +11,7 @@ cassy:
 
 shelan:
   name: "Shelan"
-  registered_at: Date.today - 25
+  registered_at: <% Date.today - 25 %>
   address: "111 Breezy Lane"
   city: "Seattle"
   state: "Washington"
