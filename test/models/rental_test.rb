@@ -2,6 +2,19 @@ require "test_helper"
 
 describe Rental do
   describe 'validations' do
+    let(:complete_rental){
+      Rental.new(
+      checkout_date: (Date.today - 1),
+      checkin_date: Date.today,
+      due_date: Date.today + 6,
+      movie: scary,
+      customer: cassy
+        )
+    }
+
+    it "must be valid with all fields" do
+      value(complete_rental).must_be :valid
+    end
 
   end
 
