@@ -43,7 +43,8 @@ describe Movie do
   end
 
   describe "relations" do
-    it "has many customers through rental" do 
-  end
+    it "has many customers through rental" do
 
+    end
+  end
 end
