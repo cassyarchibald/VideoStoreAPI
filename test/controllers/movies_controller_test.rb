@@ -1,6 +1,12 @@
 require "test_helper"
 
 describe MoviesController do
+  describe "index" do
+   it "is a real working route" do
+     get movies_path
+     must_respond_with :success
+  end
+ end
 
   describe "show" do
 
@@ -25,8 +31,5 @@ describe MoviesController do
       expect(body["ok"]).must_equal false
       expect(body["message"]).must_equal "not found"
     end
-
   end
-
-
 end
