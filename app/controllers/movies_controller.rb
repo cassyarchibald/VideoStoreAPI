@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
     else
       render json: {
         ok: true,
-        movie: movie.as_json(only: [:id, :title, :release_date])
+        movie: movie.as_json(only: [:title, :overview, :release_date, :inventory, :available_inventory])
         }, status: :ok
     end
   end
