@@ -17,3 +17,9 @@ funny:
   overview: But what if this childhood friend is just a crazy person.
   release_date: 1948-03-31
   inventory: 9
+
+fake:
+  title: nil
+  overview: nil
+  release_date: nil
+  inventory: nil

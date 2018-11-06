@@ -1,40 +1,49 @@
 require "test_helper"
 
 describe Movie do
-  let(:scary) { movies(:scary) }
-  let(:romantic) { movies(:romantic) }
-  let(:funny) { movies(:funny) }
+  describe "validations" do
+    let(:complete_movie) {
+      Movie.new title: "Cher",
+      overview: "The Best Movie",
+      release_date: DateTime.new(2018,11,3),
+      inventory: 2
+    }
+
+    it "must be valid" do
+      value(complete_movie).must_be :valid?
+    end
+
+    it "is invalid if title is missing" do
+      complete_movie.title = nil
+      result = complete_movie.valid?
+      result.must_equal false
+      expect(complete_movie.errors).must_include "title"
+    end
+
+    it "is invalid if overview is missing" do
+      complete_movie.overview  = nil
+      result = complete_movie.valid?
+      result.must_equal false
+      expect(complete_movie.errors).must_include "overview"
+    end
+
+    it "is invalid if release_date is missing" do
+      complete_movie.release_date  = nil
+      result = complete_movie.valid?
+      result.must_equal false
+      expect(complete_movie.errors).must_include "release_date"
+    end
+
+    it "is invalid if inventory is missing" do
+      complete_movie.inventory  = nil
+      result = complete_movie.valid?
+      result.must_equal false
+      expect(complete_movie.errors).must_include "inventory"
+    end
+  end
 
   describe "relations" do
-    it "has customers through rentals" do
-    end
+    it "has many customers through rental" do 
+  end
 
-  decribe "validations" do
-    it "must be valid" do
-      expect(scary).must_be :valid?
-    end
-
-    it "requires a title" do
-    end 
-
-    it "require"
-
-has_many :customers, through: :rentals
-
-scary:
-  title: The Blue Door
-  overview: The unexciting life of a boy will be permanently altered as a strange woman enters his life
-  release_date: 1979-01-18
-  inventory: 10
-
-romantic:
-  title: Women Of Destruction
-  overview: But what if this strange woman is a con artist. Or what if everything told is completely true.
-  release_date: 2006-10-01
-  inventory: 1
-
-funny:
-  title: Robots Of Eternity
-  overview: But what if this childhood friend is just a crazy person.
-  release_date: 1948-03-31
-  inventory: 9
+end
