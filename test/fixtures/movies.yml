@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  title: 
-  overview: 
-  release_date: 
-  inventory: MyString
+scary:
+  title: "The Meg"
+  overview: "Scary movie about a giant shark"
+  release_date: Date.today - 30
+  inventory: 3
 
-two:
-  title: 
-  overview: 
-  release_date: 
-  inventory: MyString
+romantic:
+  title: "Gone with the wind"
+  overview: "Romantic movie of some sort"
+  release_date: Date.today - 900
+  inventory: 4

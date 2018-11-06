@@ -1,6 +1,9 @@
 require "test_helper"
 
 describe Customer do
+  # Add fixture let blocks here
+
+
   describe "validations" do
     let(:complete_customer) {
       Customer.new name: "Cassy",
@@ -11,7 +14,6 @@ describe Customer do
       postal_code: "98133",
       phone: "999-999-9999"
     }
-
 
     it "must be valid" do
       value(complete_customer).must_be :valid?
@@ -70,8 +72,11 @@ describe Customer do
 
   describe "relationships" do
 
-    it "has many movies through rentals" do
+    it "can have many movies" do
+      # Act = Add a movie?
+
 
     end
+
   end
 end
