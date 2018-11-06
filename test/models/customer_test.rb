@@ -2,10 +2,7 @@ require "test_helper"
 require 'pry'
 
 describe Customer do
-  # Add fixture let blocks here
-
   describe "validations" do
-
     let(:complete_customer) {
       Customer.new name: "Cassy",
       registered_at: DateTime.new(2018,11,3),
@@ -71,21 +68,17 @@ describe Customer do
   end
 
   describe "relationships" do
-    # let( :customer ) { Customer.find_by( name: "Cassy" ) }
-    # let( :movie ){ Movie.find_by( title: "Robots Of Eternity" ) }
+    let(:movie) { movies(:funny) }
+    let(:customer) { customers(:shelan) }
 
     it "has a list of movies" do
-      customer = customers[:cassy]
       customer.must_respond_to :movies
       customer.movies.each do |movie|
         movie.must_be_kind_of Movie
       end
     end
 
-      # Does customer respond to movies
-      # Is each item in .movies an array
     it "has a list of rentals" do
-      customer = customers[:cassy]
       customer.must_respond_to :rentals
       customer.rentals.each do |rental|
         rental.must_be_kind_of Rental
