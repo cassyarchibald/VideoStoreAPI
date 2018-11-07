@@ -27,21 +27,28 @@ describe RentalsController do
 
   end
 
-#   it "can create a new rental if given valid params" do
-#     expect {
-#       post checkout_path, params: rental_hash
-#     }.must_change 'Rental.count', 1
-#
-#     expect(Rental.last.checkout_date).must_equal rental_hash[:rental][:checkout_date]
-#     expect(Rental.last.due_date).must_equal rental_hash[:rental][:due_date]
-#     expect(Rental.last.customer_id).must_equal rental_hash[:rental][:customer_id]
-#     expect(Rental.last.movie_id).must_equal rental_hash[:rental][:movie_id]
-#
-#   end
-#
-#   it "responds with an error for invalid params" do
-#
-#   end
+  it "can create a new rental if given valid params" do
+    expect {
+      post checkout_path, params: rental_hash
+    }.must_change 'Rental.count', 1
+
+    expect(Rental.last.checkout_date).must_equal rental_hash[:rental][:checkout_date]
+    expect(Rental.last.due_date).must_equal rental_hash[:rental][:due_date]
+    expect(Rental.last.customer_id).must_equal rental_hash[:rental][:customer_id]
+    expect(Rental.last.movie_id).must_equal rental_hash[:rental][:movie_id]
+
+  end
+
+  it "responds with an error for invalid params" do
+    rental_hash[:rental][:customer_id] = nil
+
+    expect {
+      post checkout_path, params: rental_hash
+    }.wont_change 'Rental.count'
+
+    must_respond_with :bad_request
+
+  end
 #
 #   it "Removes one from the movies inventory" do
 #     # post check_out_path, params: rental_hash

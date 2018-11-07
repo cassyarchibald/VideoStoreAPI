@@ -43,13 +43,13 @@ describe Movie do
   end
 
   describe "relations" do
-    let(:romantic_movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
+    let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
     let(:customer) {customers(:cassy) }
 
     it "has many customers through rental" do
       #Act
-      romantic_movie.customers << customer #add 1st customer to a movie's customer
-      customers = romantic_movie.customers #customers = movie's customers
+      movie.customers << customer #add 1st customer to a movie's customer
+      customers = movie.customers #customers = movie's customers
 
       #assert
       expect(customers.length).must_be :>=, 1 #customers length should change by 1
@@ -59,11 +59,47 @@ describe Movie do
     end
 
     it "has many rentals" do
-      romantic = movies(:romantic)
-      romantic.must_respond_to :rentals
-      romantic.rentals.each do |rental|
+      movie.must_respond_to :rentals
+      movie.rentals.each do |rental|
         rental.must_be_kind_of Rental
       end
     end
+  end
+
+  describe "custom logic" do
+    let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
+
+    describe "reduce inventory" do
+      it "Reduces inventory by one if there is at least one item in inventory" do
+        start_inventory_count = movie.inventory
+        movie.reduce_inventory
+        expect(movie.inventory).must_equal start_inventory_count - 1
+      end
+
+      it "Returns false if inventory is 0" do
+          movie.inventory = 0
+          expect(movie.reduce_inventory).must_equal false
+      end
+    end
+
+
+    describe "check inventory" do
+
+      it "returns true if inventory is greater than 1" do
+        movie = movies(:funny)
+        expect(movie.check_inventory).must_equal true
+      end
+
+      it "returns false if inventory is less than one" do
+        movie.inventory = 0
+        expect(movie.check_inventory).must_equal false
+      end
+
+    end
+
+    it "calculates available inventory" do
+
+    end
+
   end
 end

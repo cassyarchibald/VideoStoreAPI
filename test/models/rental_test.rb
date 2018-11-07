@@ -61,8 +61,11 @@ describe Rental do
       rental.must_respond_to :customer
       rental.customer.must_be_kind_of Customer
     end
-
   end
 
+  describe "custom logic" do
 
+    # TODO Test that self.due_date is working 
+
+  end
 end

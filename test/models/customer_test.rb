@@ -82,4 +82,18 @@ describe Customer do
       end
     end
   end
+
+  describe "custom logic" do
+    let(:customer) { customers(:cassy) }
+
+    it "adds one to movies_checked_out_count" do
+      # customer.add_movie_to_count
+      # expect that this adds one to count
+      start_movies_checked_out = customer.movies_checked_out_count
+      customer.add_movie_to_count
+      expect(customer.movies_checked_out_count).must_equal start_movies_checked_out + 1
+    end
+
+
+  end
 end
