@@ -48,11 +48,7 @@ describe Movie do
 
     it "has many customers through rental" do
       #Act
-<<<<<<< HEAD
-      romantic_movie.customers << Customer.first #add 1st customer to a movie's customer
-=======
       romantic_movie.customers << customer #add 1st customer to a movie's customer
->>>>>>> ddaeabe7c51d3bc3db8cc6c2f7ce717b50789691
       customers = romantic_movie.customers #customers = movie's customers
 
       #assert

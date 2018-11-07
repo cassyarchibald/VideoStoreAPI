@@ -12,7 +12,7 @@ describe Rental do
       # movie: Movie.first,
       # customer: Customer.first
       movie_id: movies(:scary).id,
-      customer_id: customer(:cassy).id
+      customer_id: customers(:cassy).id
     }
 
     it "must be valid with all fields" do
