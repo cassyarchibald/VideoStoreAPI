@@ -12,8 +12,8 @@ describe RentalsController do
         rental: {
           checkout_date: Date.today,
           due_date: Date.today + 7,
-          movie_id: Movie.last,
-          customer_id: Customer.first
+          movie_id: movies(:scary),
+          customer_id: customers(:cassy)
         }
       }
   end
