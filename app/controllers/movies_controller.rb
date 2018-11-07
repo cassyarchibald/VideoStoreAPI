@@ -25,7 +25,7 @@ class MoviesController < ApplicationController
     if @movie.save
       render json: {
         ok: true,
-        movie: @movie.as_json(only: [:id, :title, :overview, :release_date, :inventory])
+        movie: movie.as_json(only: [:id, :title, :overview, :release_date, :inventory, :available_inventory])
       }, status: :ok
 
     else
@@ -38,7 +38,7 @@ class MoviesController < ApplicationController
 
   private
 
-    def movie_params
-      params.permit(:id, :title, :overview, :release_date, :inventory)
-    end
+  def movie_params
+    params.permit(:id, :title, :overview, :release_date, :inventory, :available_inventory)
   end
+end
