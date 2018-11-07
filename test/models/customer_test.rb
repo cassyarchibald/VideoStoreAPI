@@ -4,7 +4,7 @@ require 'pry'
 describe Customer do
   describe "validations" do
     let(:complete_customer) {
-      Customer.new name: "Cassy",
+      Customer.create name: "Cassy",
       registered_at: DateTime.new(2018,11,3),
       address: "123 Sunny Lane",
       city: "Seattle",
@@ -24,11 +24,8 @@ describe Customer do
       expect(complete_customer.errors).must_include "name"
     end
 
-    it "is invalid if registered_at is missing" do
-      complete_customer.registered_at = nil
-      result = complete_customer.valid?
-      result.must_equal false
-      expect(complete_customer.errors).must_include "registered_at"
+    it "has registered_at set to the same as created_at" do
+      expect(complete_customer.registered_at).must_equal complete_customer.created_at
     end
 
     it "is invalid if address is missing" do
