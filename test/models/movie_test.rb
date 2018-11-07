@@ -82,6 +82,21 @@ describe Movie do
       end
     end
 
+    describe "set_checkout" do
+      it "is equal to the date the rental was created" do
+        # binding.pry
+      end
+    end
+
+    describe "number of checked out movies" do
+      it "returns the number of movies that are currently checked out" do
+        movie = movies(:funny)
+        expect(movie.number_of_checked_out_movies).must_equal movie.rentals.length
+
+      end
+
+    end
+
 
     describe "check inventory" do
 
@@ -98,6 +113,18 @@ describe Movie do
     end
 
     it "calculates available inventory" do
+      movie = movies(:funny)
+      start_available = movie.available_inventory
+      # Creating a rental to reduce number available
+      binding.pry
+      Rental.create(checkout_date: Date.today,
+        due_date: Date.today + 7,
+        movie_id: movie.id,
+        customer_id: customers(:cassy).id
+      )
+
+      # Checking that available inventory was reduced
+      binding.pry
 
     end
 

@@ -16,11 +16,11 @@ class Movie < ApplicationRecord
   end
 
   def reduce_inventory
-    if check_inventory
-      self.inventory -= 1
-    else
-      return false
-    end 
+    check_inventory ? self.inventory -= 1 : false
+  end
+
+  def number_of_checked_out_movies
+    self.rentals.length 
   end
 
   private
