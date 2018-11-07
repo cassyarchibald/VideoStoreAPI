@@ -2,7 +2,7 @@ require "test_helper"
 
 describe Movie do
   let(:complete_movie) {
-    Movie.new title: "Cher",
+    Movie.create title: "Cher",
     overview: "The Best Movie",
     release_date: DateTime.new(2018,11,3),
     inventory: 2
