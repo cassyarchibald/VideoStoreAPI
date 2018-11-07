@@ -11,9 +11,24 @@ class Movie < ApplicationRecord
   validates :release_date, presence: true
   validates :inventory, presence: true
 
+  def check_inventory
+    self.inventory > 0 ? true : false
+  end
+
+  def reduce_inventory
+    if check_inventory
+      self.inventory -= 1
+    else
+      return false
+    end 
+  end
+
   private
 
   def set_available_inventory_default
     self.available_inventory = self.inventory
   end
+
+
+
 end

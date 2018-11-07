@@ -65,4 +65,41 @@ describe Movie do
       end
     end
   end
+
+  describe "custom logic" do
+    let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
+
+    describe "reduce inventory" do
+      it "Reduces inventory by one if there is at least one item in inventory" do
+        start_inventory_count = movie.inventory
+        movie.reduce_inventory
+        expect(movie.inventory).must_equal start_inventory_count - 1
+      end
+
+      it "Returns false if inventory is 0" do
+          movie.inventory = 0
+          expect(movie.reduce_inventory).must_equal false
+      end
+    end
+
+
+    describe "check inventory" do
+
+      it "returns true if inventory is greater than 1" do
+        movie = movies(:funny)
+        expect(movie.check_inventory).must_equal true
+      end
+
+      it "returns false if inventory is less than one" do
+        movie.inventory = 0
+        expect(movie.check_inventory).must_equal false
+      end
+
+    end
+
+    it "calculates available inventory" do
+
+    end
+
+  end
 end
