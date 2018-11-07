@@ -9,6 +9,15 @@ class RentalsController < ApplicationController
         # Only returning the customer and movie ids
         rental: rental.as_json(only: [ :customer_id, :movie_id ] )
       }, status: :ok
+
+      # Reduce the inventory (should reduce the inventory/save the movie)
+      # Saving movie triggers the set_available_inventory
+      # binding.pry
+      rental.movie.reduce_inventory
+
+      # Add to customer checked out count
+      rental.customer.add_movie_to_count
+
     else
       render json: {
         ok: false,

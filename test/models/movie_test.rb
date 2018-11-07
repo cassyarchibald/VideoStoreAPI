@@ -8,6 +8,7 @@ describe Movie do
     inventory: 2
   }
 
+
   describe "validations" do
     it "must be valid" do
       value(complete_movie).must_be :valid?
@@ -40,7 +41,7 @@ describe Movie do
       result.must_equal false
       expect(complete_movie.errors).must_include "inventory"
     end
-  end
+  end # Validation end
 
   describe "relations" do
     let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
@@ -64,7 +65,7 @@ describe Movie do
         rental.must_be_kind_of Rental
       end
     end
-  end
+  end # End of relations
 
   describe "custom logic" do
     let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
@@ -77,10 +78,10 @@ describe Movie do
       end
 
       it "Returns false if inventory is 0" do
-          movie.inventory = 0
-          expect(movie.reduce_inventory).must_equal false
+        movie.inventory = 0
+        expect(movie.reduce_inventory).must_equal false
       end
-    end
+    end # End of reduce inventory
 
     describe "set_checkout" do
       it "is equal to the date the rental was created" do
@@ -107,21 +108,6 @@ describe Movie do
       end
     end
 
-    it "calculates available inventory" do
-      movie = movies(:funny)
-      start_available = movie.available_inventory
-      # Creating a rental to reduce number available
-      binding.pry
-      Rental.create(checkout_date: Date.today,
-        due_date: Date.today + 7,
-        movie_id: movie.id,
-        customer_id: customers(:cassy).id
-      )
-
-      # Checking that available inventory was reduced
-      binding.pry
-
-    end
 
   end
 end

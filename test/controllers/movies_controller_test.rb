@@ -45,7 +45,6 @@ describe MoviesController do
         }
     end
     it "can creates a new movie given valid params" do
-      binding.pry
       #Act
       expect {
         post movies_path, params: movie_hash
