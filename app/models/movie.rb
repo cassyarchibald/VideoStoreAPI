@@ -16,7 +16,7 @@ class Movie < ApplicationRecord
 
   def set_available_inventory
     # binding.pry
-    self.available_inventory = self.inventory - number_of_checked_out_movies
+    self.available_inventory =  self.inventory - number_of_checked_out_movies
   end
 
   def check_inventory
@@ -25,11 +25,16 @@ class Movie < ApplicationRecord
 
   def reduce_inventory
     if check_inventory
-      self.inventory -= 1
+      # binding.pry
+      # self.inventory -= 1
+      binding.pry
+       self.available_inventory = self.inventory - number_of_checked_out_movies
+
       # Saving movie should trigger an update to
       # set_available_inventory
       self.save
     else
+      # binding.pry
       return false
     end
   end
