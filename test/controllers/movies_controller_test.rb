@@ -32,4 +32,38 @@ describe MoviesController do
       expect(body["message"]).must_equal "not found"
     end
   end
+
+  describe "create" do
+    let (:movie_params) do
+      {
+        movie: {
+          title: 'Blue Day',
+          overview: 'A great movie',
+          release_date: '1948-03-31',
+          inventory: 2
+        }
+      }
+    end
+
+    it "can creates a new movie given valid params" do
+      #Act
+      expect {
+        post movies_path, params: movie_params
+      }.must_change 'Movie.count', 1
+
+      expect(Movie.title).must_equal movie_params[:movie][:title]
+      expect(Movie.overview).must_equal movie_param[:movie][:overview]
+      expect(Movie.release_date).must_equal book_hash[:movie][:release_date]
+    end
+
+    it "responds with an error for invalid movie params" do
+      movie_params[:movie][:title] = nil
+
+      expect {
+        post movies_path, params: movie_params
+      }.wont_change 'Movie.count'
+
+      must_respond_with :bad_request
+    end
+  end
 end
