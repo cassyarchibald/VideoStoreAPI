@@ -20,13 +20,13 @@ class Movie < ApplicationRecord
   end
 
   def number_of_checked_out_movies
-    self.rentals.length 
+    self.rentals.length
   end
 
   private
 
   def set_available_inventory_default
-    self.available_inventory = self.inventory
+    self.available_inventory = self.inventory - number_of_checked_out_movies
   end
 
 

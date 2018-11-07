@@ -92,14 +92,10 @@ describe Movie do
       it "returns the number of movies that are currently checked out" do
         movie = movies(:funny)
         expect(movie.number_of_checked_out_movies).must_equal movie.rentals.length
-
       end
-
     end
 
-
     describe "check inventory" do
-
       it "returns true if inventory is greater than 1" do
         movie = movies(:funny)
         expect(movie.check_inventory).must_equal true
@@ -109,7 +105,6 @@ describe Movie do
         movie.inventory = 0
         expect(movie.check_inventory).must_equal false
       end
-
     end
 
     it "calculates available inventory" do
