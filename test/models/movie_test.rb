@@ -43,13 +43,13 @@ describe Movie do
   end
 
   describe "relations" do
-    let(:romantic_movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
+    let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
     let(:customer) {customers(:cassy) }
 
     it "has many customers through rental" do
       #Act
-      romantic_movie.customers << customer #add 1st customer to a movie's customer
-      customers = romantic_movie.customers #customers = movie's customers
+      movie.customers << customer #add 1st customer to a movie's customer
+      customers = movie.customers #customers = movie's customers
 
       #assert
       expect(customers.length).must_be :>=, 1 #customers length should change by 1
@@ -59,9 +59,8 @@ describe Movie do
     end
 
     it "has many rentals" do
-      romantic = movies(:romantic)
-      romantic.must_respond_to :rentals
-      romantic.rentals.each do |rental|
+      movie.must_respond_to :rentals
+      movie.rentals.each do |rental|
         rental.must_be_kind_of Rental
       end
     end

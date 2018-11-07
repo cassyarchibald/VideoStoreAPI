@@ -61,8 +61,5 @@ describe Rental do
       rental.must_respond_to :customer
       rental.customer.must_be_kind_of Customer
     end
-
   end
-
-
 end
