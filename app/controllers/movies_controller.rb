@@ -14,7 +14,11 @@ class MoviesController < ApplicationController
 
       render json: {
         ok: true,
-        movie: movie.as_json(only: [:title, :overview, :release_date, :inventory, :available_inventory])
+        title: movie.as_json(only: [:title])["title"],
+        overview: movie.as_json(only: [:overview])["overview"],
+        release_date: movie.as_json(only: [:release_date])["release_date"],
+        inventory: movie.as_json(only: [:inventory])["inventory"],
+        available_inventory: movie.as_json(only: [:available_inventory])["available_inventory"]
         }, status: :ok
     end
   end
@@ -25,7 +29,7 @@ class MoviesController < ApplicationController
     if movie.save
       render json: {
         ok: true,
-        movie: movie.as_json(only: [:id])
+        id: movie.as_json(only: [:id])["id"]
       }, status: :ok
 
     else
@@ -39,6 +43,6 @@ class MoviesController < ApplicationController
   private
 
   def movie_params
-    params.permit(:title, :overview, :release_date, :inventory)
+    params.permit(:id, :title, :overview, :release_date, :inventory)
   end
 end
