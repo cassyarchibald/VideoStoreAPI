@@ -10,9 +10,10 @@ describe MoviesController do
  end
 
   describe "show" do
+    let(:id){movies(:funny).id}
 
     it "can retrieve a valid movie and returns JSON" do
-      get movie_path(Movie.first.id)
+      get movie_path(id)
       expect(response.header['Content-Type']).must_include 'json'
       must_respond_with :success
     end

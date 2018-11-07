@@ -5,15 +5,14 @@ describe RentalsController do
     # Create for rental
     let(:movie) { movies(:funny) } #romantic_movie is being initialized as --> { movies(:romantic) }
     let(:customer) {customers(:shelan) }
-    binding.pry
 
     let (:rental_hash) do
       {
         rental: {
           checkout_date: Date.today,
           due_date: Date.today + 7,
-          movie_id: movies(:scary),
-          customer_id: customers(:cassy)
+          movie_id: movies(:scary).id,
+          customer_id: customers(:cassy).id
         }
       }
   end
@@ -28,47 +27,47 @@ describe RentalsController do
 
   end
 
-  it "responds with an error for invalid params" do
-
-  end
-
-  it "can create a new rental if given valid params" do
-    expect {
-      post checkout_path, params: rental_hash
-    }.must_change 'Rental.count', 1
-
-    expect(Rental.last.checkout_date).must_equal rental_hash[:rental][:checkout_date]
-    expect(Rental.last.due_date).must_equal rental_hash[:rental][:due_date]
-    expect(Rental.last.customer_id).must_equal rental_hash[:rental][:customer_id]
-    expect(Rental.last.movie_id).must_equal rental_hash[:rental][:movie_id]
-
-  end
-
-  it "Removes one from the movies inventory" do
-    # post check_out_path, params: rental_hash
-
-
-  end
-
-  it "Does not allow removal from an empty inventory" do
-    # post check_out_path, params: rental_hash
-
-
-  end
-
-  it "has a check-out date set to today" do
-    # post check_out_path, params: rental_hash
-
-
-  end
-
-  it "has a due date set to a week from today" do
-    # post check_out_path, params: rental_hash
-
-  end
+#   it "can create a new rental if given valid params" do
+#     expect {
+#       post checkout_path, params: rental_hash
+#     }.must_change 'Rental.count', 1
+#
+#     expect(Rental.last.checkout_date).must_equal rental_hash[:rental][:checkout_date]
+#     expect(Rental.last.due_date).must_equal rental_hash[:rental][:due_date]
+#     expect(Rental.last.customer_id).must_equal rental_hash[:rental][:customer_id]
+#     expect(Rental.last.movie_id).must_equal rental_hash[:rental][:movie_id]
+#
+#   end
+#
+#   it "responds with an error for invalid params" do
+#
+#   end
+#
+#   it "Removes one from the movies inventory" do
+#     # post check_out_path, params: rental_hash
+#
+#
+#   end
+#
+#   it "Does not allow removal from an empty inventory" do
+#     # post check_out_path, params: rental_hash
+#
+#
+#   end
+#
+#   it "has a check-out date set to today" do
+#     # post check_out_path, params: rental_hash
+#
+#
+#   end
+#
+#   it "has a due date set to a week from today" do
+#     # post check_out_path, params: rental_hash
+#
+#   end
 end
-
-  describe 'check-in' do
-
-  end
+#
+#   describe 'check-in' do
+#
+#   end
 end
