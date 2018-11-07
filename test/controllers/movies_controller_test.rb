@@ -5,6 +5,7 @@ describe MoviesController do
    it "is a real working route" do
      get movies_path
      must_respond_with :success
+     expect(response.header['Content-Type']).must_include 'json'
   end
  end
 
