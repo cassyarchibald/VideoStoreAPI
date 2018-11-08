@@ -8,6 +8,7 @@ describe Movie do
     inventory: 2
   }
 
+
   describe "validations" do
     it "must be valid" do
       value(complete_movie).must_be :valid?
@@ -40,7 +41,7 @@ describe Movie do
       result.must_equal false
       expect(complete_movie.errors).must_include "inventory"
     end
-  end
+  end # Validation end
 
   describe "relations" do
     let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
@@ -65,7 +66,7 @@ describe Movie do
         rental.must_be_kind_of Rental
       end
     end
-  end
+  end # End of relations
 
   describe "custom logic" do
     let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
@@ -78,14 +79,25 @@ describe Movie do
       end
 
       it "Returns false if inventory is 0" do
-          movie.inventory = 0
-          expect(movie.reduce_inventory).must_equal false
+        movie.inventory = 0
+        expect(movie.reduce_inventory).must_equal false
+      end
+    end # End of reduce inventory
+
+    describe "set_checkout" do
+      it "is equal to the date the rental was created" do
+        # binding.pry
       end
     end
 
+    describe "number of checked out movies" do
+      it "returns the number of movies that are currently checked out" do
+        movie = movies(:funny)
+        expect(movie.number_of_checked_out_movies).must_equal movie.rentals.length
+      end
+    end
 
     describe "check inventory" do
-
       it "returns true if inventory is greater than 1" do
         movie = movies(:funny)
         expect(movie.check_inventory).must_equal true
@@ -95,12 +107,8 @@ describe Movie do
         movie.inventory = 0
         expect(movie.check_inventory).must_equal false
       end
-
     end
 
-    it "calculates available inventory" do
-
-    end
 
   end
 end

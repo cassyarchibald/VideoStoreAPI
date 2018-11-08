@@ -65,7 +65,29 @@ describe Rental do
 
   describe "custom logic" do
 
-    # TODO Test that self.due_date is working 
+    # TODO Test that self.due_date is working
+
+    # it "calculates available inventory" do
+    #   movie = Movie.create(title: "test", overview: "test", release_date: Date.today, inventory: 3)
+    #   start_available = movie.available_inventory
+    #   rental_hash = {
+    #     rental: {
+    #       checkout_date: Date.today,
+    #       due_date: Date.today + 7,
+    #       movie_id: movie.id,
+    #       customer_id: customers(:cassy).id
+    #     }
+    #   }
+    #   binding.pry
+    #
+    #   # Do a post request for a rental that has that movie's id
+    #   post checkout_path, params: rental_hash
+    #   # Checking that available inventory was reduced
+    #   # binding.pry
+    #   expect(movie.available_inventory).must_equal start_available - 1
+    #
+    # end
+
 
   end
 end
