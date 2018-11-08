@@ -15,19 +15,20 @@ describe Rental do
       value(complete_rental).must_be :valid?
     end
 
-    it ' can rent out a movie if available inventory is greater than 1' do
-      movie = Movie.new(title: "test", overview: "test", release_date: Date.today, inventory: 0)
-      result = movie.valid?
+    it 'cannot rent out a movie if available inventory is greater than 1' do
+      movie = Movie.create(title: "test", overview: "test", release_date: Date.today, inventory: 0)
+      rental = Rental.new(movie_id: movie.id, customer_id: Customer.first.id)
+      result = rental.valid?
+      binding.pry
       result.must_equal false
-      expect(movie.errors.messages).must_equal "Must be greater than 0"
+      expect(rental.errors.messages[:available_inventory_of_movie][0]).must_include "Must be greater than 0"
     end
 
-    # it 'cannot rent out a movie if available inventory is less than 1' do
-    #   complete_rental.available_inventory  = 0
-    #   result = complete_rental.valid?
-    #   result.must_equal false
-    #   expect(movie.errors.messages).must_equal "Must be greater than 0" 
-    # end
+    it 'can rent out a movie if available inventory is greater than 0' do
+      movie = Movie.new(title: "test", overview: "test", release_date: Date.today, inventory: 2)
+      result = movie.valid?
+      result.must_equal true
+    end
 
 
     ##### TODO #######
