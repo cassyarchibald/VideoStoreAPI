@@ -1,5 +1,5 @@
 class Rental < ApplicationRecord
-  before_create :set_checkout_date, :set_due_date
+  after_save :set_checkout_date, :set_due_date
 
   belongs_to :movie
   belongs_to :customer
@@ -14,11 +14,11 @@ class Rental < ApplicationRecord
 
   private
   def set_checkout_date
-    self.checkout_date = self.created_at
+    self.checkout_date = (self.created_at)
   end
 
   def set_due_date
-    self.due_date = self.checkout_date + 7
+    self.due_date = (self.checkout_date + 7)
   end
 
 

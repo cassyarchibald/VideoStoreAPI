@@ -42,18 +42,24 @@ describe Rental do
     # as that happens only after a rental post request
 
     it "has a checkout_date equal to the  date created" do
-      binding.pry
-      # Need to remove attribute availabe inventory 
-      # rental = Rental.create {
-      #   movie_id = movies(:funny).id,
-      #   customer_id = customers(:cassy).id
-      # }
+      # Need to remove attribute availabe inventory
+      rental = Rental.new movie_id: movies(:funny).id,
+        customer_id: customers(:cassy).id
 
-      binding.pry
+      rental.save
+
+      expect(rental.checkout_date).must_equal rental.created_at.to_date
 
     end
 
     it "has a due date equal to a week after the checkout date" do
+      # Need to remove attribute availabe inventory
+      rental = Rental.new movie_id: movies(:funny).id,
+        customer_id: customers(:cassy).id
+
+      rental.save
+
+      expect(rental.due_date).must_equal rental.checkout_date + 7 
 
     end
   end
