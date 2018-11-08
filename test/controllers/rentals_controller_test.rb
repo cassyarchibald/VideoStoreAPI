@@ -117,22 +117,8 @@ describe RentalsController do
       post checkout_path, params: rental_hash
 
     end
-
-    # it "adds one to the customer movies" do
-
-    # end
-  #
-  #   it "has a check-out date set to today" do
-  #     # post check_out_path, params: rental_hash
-  #
-  #
-  #   end
-  #
-  #   it "has a due date set to a week from today" do
-  #     # post check_out_path, params: rental_hash
-  #
-    end
   end
+end
   # #
   # #   describe 'check-in' do
   # #
