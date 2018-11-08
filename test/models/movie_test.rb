@@ -44,11 +44,12 @@ describe Movie do
 
   describe "relations" do
     let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
-    let(:customer) {customers(:cassy) }
+    let(:customer) { customers(:cassy) }
 
     it "has many customers through rental" do
       #Act
       movie.customers << customer #add 1st customer to a movie's customer
+      binding.pry
       customers = movie.customers #customers = movie's customers
 
       #assert
