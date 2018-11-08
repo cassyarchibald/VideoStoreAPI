@@ -15,21 +15,6 @@ describe Rental do
       value(complete_rental).must_be :valid?
     end
 
-    it "is invalid if checkout date is missing" do
-      # binding.pry
-      complete_rental.checkout_date = nil
-      result = complete_rental.valid?
-      result.must_equal false
-      expect(complete_rental.errors).must_include "checkout_date"
-    end
-
-    it "is invalid if due_date is missing" do
-      complete_rental.due_date = nil
-      result = complete_rental.valid?
-      result.must_equal false
-      expect(complete_rental.errors).must_include "due_date"
-    end
-
     ##### TODO #######
     # Do we need to test that it breaks without a customer/movie?
     # Can't do that to movie as if movie is nil then custom validator breaks
@@ -51,25 +36,25 @@ describe Rental do
     end
   end
 
-  # describe "custom logic" do
-  #   # Logic for movie available inventory
-  #   # will live in rental controller test
-  #   # as that happens only after a rental post request
-    # let(:movie){
-    #   Movie.create title: "What Dreams May Come",
-    #   overview: "Very artsy movie",
-    #   release_date: Date.today,
-    #   inventory: 3
-    # }
+  describe "custom logic" do
+    # Logic for movie available inventory
+    # will live in rental controller test
+    # as that happens only after a rental post request
 
-    # before do
-    #  # Creating a rental to reduce available inventory
-    #  binding.pry
-    #   Rental.create checkout_date: (Date.today - 1),
-    #   checkin_date: Date.today,
-    #   due_date: Date.today + 6,
-    #   movie_id: movie.id,
-    #   customer_id: customers(:cassy).id
-    # end
+    it "has a checkout_date equal to the  date created" do
+      binding.pry
+      # Need to remove attribute availabe inventory 
+      # rental = Rental.create {
+      #   movie_id = movies(:funny).id,
+      #   customer_id = customers(:cassy).id
+      # }
 
+      binding.pry
+
+    end
+
+    it "has a due date equal to a week after the checkout date" do
+
+    end
   end
+end

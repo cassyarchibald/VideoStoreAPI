@@ -86,11 +86,6 @@ describe Movie do
     #   end
     # end # End of reduce inventory
 
-    describe "set_checkout" do
-      it "is equal to the date the rental was created" do
-        # binding.pry
-      end
-    end
 
     describe "number of checked out movies" do
       it "returns the number of movies that are currently checked out" do

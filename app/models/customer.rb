@@ -1,5 +1,6 @@
 class Customer < ApplicationRecord
   before_create :set_registered_at
+  before_save :set_registered_at
 
   has_many :rentals
   has_many :movies, through: :rentals
@@ -15,6 +16,5 @@ class Customer < ApplicationRecord
     def set_registered_at
       self.registered_at = self.created_at
     end
-
 
 end

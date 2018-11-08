@@ -17,7 +17,6 @@ describe RentalsController do
       }
     end
 
-
     it "should have a working route and returns JSON" do
       post checkout_path, params: rental_hash
 
@@ -92,7 +91,7 @@ describe RentalsController do
 
         # Do a post request for a rental that has that movie's id
         post checkout_path, params: rental_hash
-        
+
         # Checking that customer movies went up by one
         expect(customer.movies_checked_out_count).must_equal start_count + 1
 
