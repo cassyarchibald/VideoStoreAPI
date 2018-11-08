@@ -108,7 +108,7 @@ describe Movie do
          movie_id: movie.id,
          customer_id: customers(:cassy).id
 
-         binding.pry
+         # binding.pry
 
          expect(movie.available_inventory).must_equal 2
 
