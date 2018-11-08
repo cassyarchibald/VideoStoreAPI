@@ -69,19 +69,22 @@ describe Movie do
 
   describe "custom logic" do
     let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
-
-    describe "reduce inventory" do
-      it "Reduces inventory by one if there is at least one item in inventory" do
-        start_inventory_count = movie.inventory
-        movie.reduce_inventory
-        expect(movie.inventory).must_equal start_inventory_count - 1
-      end
-
-      it "Returns false if inventory is 0" do
-        movie.inventory = 0
-        expect(movie.reduce_inventory).must_equal false
-      end
-    end # End of reduce inventory
+    # Remove -
+      # Should be testing that after a rent
+        # post the available_inventory returned
+        # in the body keys is correct 
+    # describe "reduce inventory" do
+    #   it "Reduces inventory by one if there is at least one item in inventory" do
+    #     start_inventory_count = movie.inventory
+    #     movie.reduce_inventory
+    #     expect(movie.inventory).must_equal start_inventory_count - 1
+    #   end
+    #
+    #   it "Returns false if inventory is 0" do
+    #     movie.inventory = 0
+    #     expect(movie.reduce_inventory).must_equal false
+    #   end
+    # end # End of reduce inventory
 
     describe "set_checkout" do
       it "is equal to the date the rental was created" do

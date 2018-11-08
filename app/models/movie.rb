@@ -12,20 +12,19 @@ class Movie < ApplicationRecord
 
   def number_of_checked_out_movies
     # Might add a flag later for "active rentals"
-    self.rentals.length
+    return Rental.where(movie_id: self.id).length
   end
 
   def available_inventory
-    # binding.pry
     return self.inventory - number_of_checked_out_movies
   end
 
 
   # If we add validation to rental that movie inventory must be > 0
   # We won't need this logic
-  def check_inventory
-    self.inventory > 0 ? true : false
-  end
+  # def check_inventory
+  #   self.inventory > 0 ? true : false
+  # end
 
   # Don't need to do this
   # Have available_inventory attribute set to return as method

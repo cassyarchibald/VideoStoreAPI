@@ -86,13 +86,23 @@ describe Customer do
   describe "custom logic" do
     let(:customer) { customers(:cassy) }
 
-    it "adds one to movies_checked_out_count" do
-      # customer.add_movie_to_count
-      # expect that this adds one to count
-      start_movies_checked_out = customer.movies_checked_out_count
-      customer.add_movie_to_count
-      expect(customer.movies_checked_out_count).must_equal start_movies_checked_out + 1
-    end
+    ####  REVISE -
+    # Anything that adjust after a rental
+    # Should live in rental controller ...
+    # After a checkout from rental
+    # (do in rental controller)
+        # Know the start value for the movie (0?)
+        # the customer.movies count goes up by 1
+        # that last movie is the one the customer checked out
+        # The available inventory of the movie
+        # movies_checked_out_count
+    # it "adds one to movies_checked_out_count" do
+    #   # customer.add_movie_to_count
+    #   # # expect that this adds one to count
+    #   # start_movies_checked_out = customer.movies_checked_out_count
+    #   # customer.add_movie_to_count
+    #   # expect(customer.movies_checked_out_count).must_equal start_movies_checked_out + 1
+    # end
 
 
   end
