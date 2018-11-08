@@ -70,45 +70,49 @@ describe Movie do
 
   describe "custom logic" do
     let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
+    # Remove -
+      # Should be testing that after a rent
+        # post the available_inventory returned
+        # in the body keys is correct
+    # describe "reduce inventory" do
+    #   it "Reduces inventory by one if there is at least one item in inventory" do
+    #     start_inventory_count = movie.inventory
+    #     movie.reduce_inventory
+    #     expect(movie.inventory).must_equal start_inventory_count - 1
+    #   end
+    #
+    #   it "Returns false if inventory is 0" do
+    #     movie.inventory = 0
+    #     expect(movie.reduce_inventory).must_equal false
+    #   end
+    # end # End of reduce inventory
 
-    describe "reduce inventory" do
-      it "Reduces inventory by one if there is at least one item in inventory" do
-        start_inventory_count = movie.inventory
-        movie.reduce_inventory
-        expect(movie.inventory).must_equal start_inventory_count - 1
-      end
-
-      it "Returns false if inventory is 0" do
-        movie.inventory = 0
-        expect(movie.reduce_inventory).must_equal false
-      end
-    end # End of reduce inventory
-
-    describe "set_checkout" do
-      it "is equal to the date the rental was created" do
-        # binding.pry
-      end
-    end
 
     describe "number of checked out movies" do
       it "returns the number of movies that are currently checked out" do
         movie = movies(:funny)
-        expect(movie.number_of_checked_out_movies).must_equal movie.rentals.length
+        expect(movie.number_of_checked_out_movies).must_equal Rental.where(movie_id: movie.id).length
       end
     end
 
-    describe "check inventory" do
-      it "returns true if inventory is greater than 1" do
-        movie = movies(:funny)
-        expect(movie.check_inventory).must_equal true
-      end
+    describe "available_inventory" do
+      it "correctly calculates the available_inventory" do
+        movie = Movie.create title: "What Dreams May Come",
+          overview: "Very artsy movie",
+          release_date: Date.today,
+          inventory: 3
 
-      it "returns false if inventory is less than one" do
-        movie.inventory = 0
-        expect(movie.check_inventory).must_equal false
+        Rental.create checkout_date: (Date.today - 1),
+         checkin_date: Date.today,
+         due_date: Date.today + 6,
+         movie_id: movie.id,
+         customer_id: customers(:cassy).id
+
+         binding.pry
+
+         expect(movie.available_inventory).must_equal 2
+
       end
     end
-
-
   end
 end

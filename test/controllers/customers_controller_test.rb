@@ -9,6 +9,7 @@ describe CustomersController do
 
     it "should get index as a real working route and returns JSON" do
       expect(response.header['Content-Type']).must_include 'json'
+      # binding.pry
       must_respond_with :success
     end
 

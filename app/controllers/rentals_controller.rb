@@ -11,12 +11,7 @@ class RentalsController < ApplicationController
       }, status: :ok
 
       # Reduce the inventory (should reduce the inventory/save the movie)
-      # Saving movie triggers the set_available_inventory
-      # binding.pry
-      rental.movie.reduce_inventory
-
-      # Add to customer checked out count
-      rental.customer.add_movie_to_count
+      # Saving movie triggers the available_inventory
 
     else
       render json: {
