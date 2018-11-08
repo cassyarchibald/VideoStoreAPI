@@ -50,8 +50,6 @@ describe RentalsController do
 
     end
 
-    ###### PROBABLY REVISE THIS ########
-
     describe "available inventory" do
 
       it "Has an accurate available inventory after a rental is created" do
@@ -94,8 +92,9 @@ describe RentalsController do
 
         # Do a post request for a rental that has that movie's id
         post checkout_path, params: rental_hash
+        
         # Checking that customer movies went up by one
-        expect(customer.movies.length).must_equal start_count + 1
+        expect(customer.movies_checked_out_count).must_equal start_count + 1
 
       end
     end
@@ -117,9 +116,6 @@ describe RentalsController do
       # # # HOW # # #
       # Not sure how to test this
       post checkout_path, params: rental_hash
-
-
-
 
     end
 

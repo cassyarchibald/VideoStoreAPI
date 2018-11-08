@@ -5,18 +5,11 @@ class Customer < ApplicationRecord
   has_many :movies, through: :rentals
   validates_presence_of :name, :address, :city, :state, :postal_code, :phone
 
-  # Just calculate the total movies here and pass to controller
+  # Calculate the total movies here and pass to controller
   def movies_checked_out_count
     # Maybe set status to show "active" rentals later
-    self.rentals.length
+    return Rental.where(customer_id: self.id).length
   end
-
-    # def add_movie_to_count
-    #   # How do I access the movies checked out count
-    #   # For this customer?
-    #   # TODO customer.rentals.length based on if active or inactive
-    #   self.movies_checked_out_count += 1
-    # end
 
   private
     def set_registered_at
