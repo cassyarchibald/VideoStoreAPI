@@ -14,6 +14,7 @@ class RentalsController < ApplicationController
       # Saving movie triggers the set_available_inventory
       # binding.pry
       # binding.pry
+      # Do calculation - Don't need a calculation....
       rental.movie.reduce_inventory
 
       # Add to customer checked out count

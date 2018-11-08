@@ -21,8 +21,8 @@ describe MoviesController do
     it "returns a movie with valid keys" do
       get movie_path(id)
       body = JSON.parse(response.body)
-      keys = %w(title overview Date.parse(release_date) inventory available_inventory).sort
-      expect(keys.sort).must_equal keys
+      keys = %w(title overview release_date inventory available_inventory).sort
+      expect(body.keys.sort).must_equal keys
     end
 
     it "returns status not found ok false for invalid ids" do
