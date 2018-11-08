@@ -1,16 +1,12 @@
 require "test_helper"
 
 describe Rental do
-  # Does not know what scary or customer is
-  # let(:customer){customers[:cassy]}
-  # let(:movie){movies[:funny]}
+
   describe 'validations' do
     let(:complete_rental){
       Rental.new checkout_date: (Date.today - 1),
       checkin_date: Date.today,
       due_date: Date.today + 6,
-      # movie: Movie.first,
-      # customer: Customer.first
       movie_id: movies(:scary).id,
       customer_id: customers(:cassy).id
     }
@@ -34,19 +30,11 @@ describe Rental do
       expect(complete_rental.errors).must_include "due_date"
     end
 
-    it "is invalid if movie is missing" do
-      complete_rental.movie_id = nil
-      result = complete_rental.valid?
-      result.must_equal false
-      expect(complete_rental.errors).must_include "movie_id"
-    end
-
-    it "is invalid if customer is missing" do
-      complete_rental.customer_id = nil
-      result = complete_rental.valid?
-      result.must_equal false
-      expect(complete_rental.errors).must_include "customer_id"
-    end
+    ##### TODO #######
+    # Do we need to test that it breaks without a customer/movie?
+    # Can't do that to movie as if movie is nil then custom validator breaks
+    # What about independent destroy or nullify for if one of those get deleted?
+    #
   end
 
   describe 'relationships' do
@@ -63,31 +51,25 @@ describe Rental do
     end
   end
 
-  describe "custom logic" do
+  # describe "custom logic" do
+  #   # Logic for movie available inventory
+  #   # will live in rental controller test
+  #   # as that happens only after a rental post request
+    # let(:movie){
+    #   Movie.create title: "What Dreams May Come",
+    #   overview: "Very artsy movie",
+    #   release_date: Date.today,
+    #   inventory: 3
+    # }
 
-    # TODO Test that self.due_date is working
-
-    # it "calculates available inventory" do
-    #   movie = Movie.create(title: "test", overview: "test", release_date: Date.today, inventory: 3)
-    #   start_available = movie.available_inventory
-    #   rental_hash = {
-    #     rental: {
-    #       checkout_date: Date.today,
-    #       due_date: Date.today + 7,
-    #       movie_id: movie.id,
-    #       customer_id: customers(:cassy).id
-    #     }
-    #   }
-    #   binding.pry
-    #
-    #   # Do a post request for a rental that has that movie's id
-    #   post checkout_path, params: rental_hash
-    #   # Checking that available inventory was reduced
-    #   # binding.pry
-    #   expect(movie.available_inventory).must_equal start_available - 1
-    #
+    # before do
+    #  # Creating a rental to reduce available inventory
+    #  binding.pry
+    #   Rental.create checkout_date: (Date.today - 1),
+    #   checkin_date: Date.today,
+    #   due_date: Date.today + 6,
+    #   movie_id: movie.id,
+    #   customer_id: customers(:cassy).id
     # end
 
-
   end
-end
