@@ -15,6 +15,21 @@ describe Rental do
       value(complete_rental).must_be :valid?
     end
 
+    it ' can rent out a movie if available inventory is greater than 1' do
+      movie = Movie.new(title: "test", overview: "test", release_date: Date.today, inventory: 0)
+      result = movie.valid?
+      result.must_equal false
+      expect(movie.errors.messages).must_equal "Must be greater than 0"
+    end
+
+    # it 'cannot rent out a movie if available inventory is less than 1' do
+    #   complete_rental.available_inventory  = 0
+    #   result = complete_rental.valid?
+    #   result.must_equal false
+    #   expect(movie.errors.messages).must_equal "Must be greater than 0" 
+    # end
+
+
     ##### TODO #######
     # Do we need to test that it breaks without a customer/movie?
     # Can't do that to movie as if movie is nil then custom validator breaks
@@ -59,7 +74,7 @@ describe Rental do
 
       rental.save
 
-      expect(rental.due_date).must_equal rental.checkout_date + 7 
+      expect(rental.due_date).must_equal rental.checkout_date + 7
 
     end
   end
