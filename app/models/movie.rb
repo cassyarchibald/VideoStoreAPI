@@ -8,11 +8,15 @@ class Movie < ApplicationRecord
   validates :release_date, presence: true
   validates :inventory, presence: true
 
-  def number_of_checked_out_movies
-    return Rental.all.select{ |rental| rental.movie_id == self.id && rental.checkin_date.nil?}.length
-  end
-
   def available_inventory
     return self.inventory - number_of_checked_out_movies
   end
+
+  private
+
+    def number_of_checked_out_movies
+      return Rental.all.select{ |rental| rental.movie_id == self.id && rental.checkin_date.nil?}.length
+    end
+
+
 end

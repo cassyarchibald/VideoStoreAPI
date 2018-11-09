@@ -2,7 +2,6 @@ class RentalsController < ApplicationController
 
   def checkout
     rental = Rental.create(rental_params)
-      # binding.pry 
     # If it's able to be saved,
     # We'll have the created_at value we need
     if rental.save

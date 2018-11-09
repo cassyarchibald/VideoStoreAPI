@@ -50,7 +50,7 @@ describe Movie do
 
       movie.must_respond_to :customers
 
-      
+
       movie.customers.each do |customer|
         customer.must_be_kind_of Customer
       end
@@ -66,12 +66,6 @@ describe Movie do
 
   describe "custom logic" do
     let(:movie) { movies(:romantic) }
-    describe "number of checked out movies" do
-      it "returns the number of movies that are currently checked out" do
-        # movie = movies(:funny)
-        expect(movie.number_of_checked_out_movies).must_equal Rental.where(movie_id: movie.id).length
-      end
-    end
 
     describe "available_inventory" do
       it "does not included checked in movies " do

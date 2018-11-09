@@ -93,19 +93,4 @@ describe Rental do
 
     end
   end
-  describe "check in method for a movie" do
-
-    it "has a check_in date equal to today's date when movie is checked in" do
-      rental = Rental.new movie_id: movies(:funny).id,
-        customer_id: customers(:cassy).id
-
-      rental.save
-
-      expect(rental.checkin_date).must_equal nil
-
-      rental.check_in!
-
-      expect(rental.checkin_date).must_equal Date.today
-    end
-  end
 end

@@ -26,21 +26,23 @@ describe RentalsController do
 
     it "can create a new rental if given valid params" do
 
-      # rental = rentals(:pre_check_out_rental)
-
-        rental_hash = {
-          rental: {
-            movie_id: movies(:funny).id,
-            customer_id: customers(:cassy).id
-          }
+      rental_hash = {
+        rental: {
+          movie_id: movies(:funny).id,
+          customer_id: customers(:cassy).id
         }
+      }
 
-        post checkout_path, params: rental_hash
+      post checkout_path, params: rental_hash
 
-        rental = Rental.find_by( movie_id: movies(:funny).id, customer_id: customers(:cassy).id, due_date: Date.today + 7, checkout_date: Date.today  )
+      # Finding rental with information that is the same
+        # As our post request.
+        # Wasn't sure how else to do this as we don't have an
+        # id in the post request
+      rental = Rental.find_by( movie_id: movies(:funny).id, customer_id: customers(:cassy).id, due_date: Date.today + 7, checkout_date: Date.today  )
 
-        expect(rental.checkout_date).must_equal Date.today
-        expect(rental.due_date).must_equal Date.today + 7
+      expect(rental.checkout_date).must_equal Date.today
+      expect(rental.due_date).must_equal Date.today + 7
     end
 
     it "responds with an error for invalid params" do
@@ -51,7 +53,6 @@ describe RentalsController do
       }.wont_change 'Rental.count'
 
       must_respond_with :bad_request
-
     end
 
     describe "available inventory" do
@@ -96,7 +97,6 @@ describe RentalsController do
 
         # Checking that customer movies went up by one
         expect(customer.movies_checked_out_count).must_equal start_count + 1
-
       end
     end
   end
@@ -108,8 +108,6 @@ describe RentalsController do
 
       rental_hash = {
         rental: {
-          # checkout_date: rental.checkout_date,
-          # due_date: rental.due_date,
           movie_id: rental.movie.id,
           customer_id: rental.customer.id
         }

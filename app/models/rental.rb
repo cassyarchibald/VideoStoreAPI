@@ -23,6 +23,7 @@ class Rental < ApplicationRecord
   end
 
   private
+
   def set_checkout_date
     self.checkout_date = (self.created_at)
   end
@@ -30,5 +31,4 @@ class Rental < ApplicationRecord
   def set_due_date
     self.due_date = (self.checkout_date + 7)
   end
-
 end

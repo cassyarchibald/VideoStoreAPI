@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   def index
-    movies = Movie.all
+    movies = Movie.all.order(:title)
     render json: movies.as_json(only: [:id, :title, :release_date]), status: :ok
   end
 
@@ -11,16 +11,12 @@ class MoviesController < ApplicationController
       render json: {ok: false, message: 'not found'},
       status: :not_found
     else
-      # available_inventory = movie.available_inventory
       render json: {
-        # ok: true,
-        # methods: :available_inventory,
         title: movie.as_json(only: [:title])["title"],
         overview: movie.as_json(only: [:overview])["overview"],
         release_date: movie.as_json(only: [:release_date])["release_date"],
         inventory: movie.as_json(only: [:inventory])["inventory"],
         "available_inventory" => movie.available_inventory
-        # available_inventory: movie.as_json(only: [:available_inventory])["available_inventory"]
         }, status: :ok
     end
   end
