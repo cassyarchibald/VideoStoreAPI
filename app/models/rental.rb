@@ -1,6 +1,7 @@
 class Rental < ApplicationRecord
   after_save :set_checkout_date, :set_due_date
 
+
   belongs_to :movie
   belongs_to :customer
   validates_presence_of :movie_id, :customer_id
@@ -10,6 +11,11 @@ class Rental < ApplicationRecord
     unless self.movie.available_inventory > 0
       errors.add(:available_inventory_of_movie, "Must be greater than 0")
     end
+  end
+
+  def check_in! #checks in a customer's rental(customer_id, movie_id)
+    self.checkin_date = Date.today
+    self.save
   end
 
   private
