@@ -46,16 +46,13 @@ describe Movie do
     let(:movie) { movies(:romantic) }
     let(:customer) { customers(:cassy) }
 
-    it "has many customers through rental" do
-      #Act
-      
-      movie.rentals.customers << customer #add 1st customer to a movie's customer
-      customers = movie.customers #customers = movie's customers
+    it "can have many customers" do
 
-      #assert
-      expect(customers.length).must_be :>=, 1 #customers length should change by 1
-      customers.each do |customer|
-        expect(customer).must_be_instance_of Customer
+      movie.must_respond_to :customers
+
+      
+      movie.customers.each do |customer|
+        customer.must_be_kind_of Customer
       end
     end
 
