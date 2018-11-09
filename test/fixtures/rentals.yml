@@ -19,3 +19,7 @@ check_out_rental:
   due_date: <% Date.today + 7 %>
   movie: scary
   customer: cassy
+
+pre_check_out_rental:
+  movie: funny
+  customer: shelan 
