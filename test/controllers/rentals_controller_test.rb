@@ -30,6 +30,7 @@ describe RentalsController do
       expect {
         post checkout_path, params: rental_hash
       }.must_change 'Rental.count', 1
+      
 
       expect(Rental.last.checkout_date).must_equal rental_hash[:rental][:checkout_date]
       expect(Rental.last.due_date).must_equal rental_hash[:rental][:due_date]
@@ -98,28 +99,52 @@ describe RentalsController do
       end
     end
 
-    it "Does not allow removal from an empty inventory" do
-      # post check_out_path, params: rental_hash
-      movie = Movie.create(title: "test", overview: "test", release_date: Date.today, inventory: 0)
+    # it "Does not allow removal from an empty inventory" do
+    #   # post check_out_path, params: rental_hash
+    #   movie = Movie.create(title: "test", overview: "test", release_date: Date.today, inventory: 0)
+    #
+    #   rental_hash = {
+    #     rental: {
+    #       checkout_date: Date.today,
+    #       due_date: Date.today + 7,
+    #       movie_id: movie.id,
+    #       customer_id: customers(:cassy).id
+    #     }
+    #   }
+    #
+    #   #Expect it will have errors
+    #   # # # HOW # # #
+    #   # Not sure how to test this
+    #   post checkout_path, params: rental_hash
+    #
+    # end
+  end
+  describe 'check-in' do
+    let(:rental) {rentals(:check_out_rental)}
+
+    it 'sets the check-in date to today' do
 
       rental_hash = {
         rental: {
-          checkout_date: Date.today,
-          due_date: Date.today + 7,
-          movie_id: movie.id,
-          customer_id: customers(:cassy).id
+          # checkout_date: rental.checkout_date,
+          # due_date: rental.due_date,
+          movie_id: rental.movie.id,
+          customer_id: rental.customer.id
         }
       }
 
-      #Expect it will have errors
-      # # # HOW # # #
-      # Not sure how to test this
-      post checkout_path, params: rental_hash
+      post checkin_path, params: rental_hash
+
+      rental.reload
+      expect(rental.checkin_date).must_equal Date.today
 
     end
   end
 end
-  # #
-  # #   describe 'check-in' do
-  # #
-#   end
+
+
+
+# def check_in!
+#   self.checkin_date = Date.today
+#   self.save
+# end

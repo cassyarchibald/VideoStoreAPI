@@ -14,9 +14,8 @@ two:
   movie: romantic
   customer: cassy
 
-three:
+check_out_rental:
   checkout_date: <% Date.today - 3 %>
-  checkin_date: <% Date.today %>
   due_date: <% Date.today + 7 %>
   movie: scary
   customer: cassy
