@@ -85,6 +85,47 @@ describe Customer do
 
   describe "custom logic" do
     let(:customer) { customers(:cassy) }
+    let(:movie){
+      Movie.create title: "Cher",
+      overview: "The Best Movie",
+      release_date: DateTime.new(2018,11,3),
+      inventory: 2
+    }
+
+    describe "movies_checked_out_count" do
+      it "is increased if a movie is not checked in" do
+
+        start_count = customer.movies_checked_out_count
+
+        # Creating "Checked out" rental. Should be included in customer movies count
+        Rental.create checkout_date: (Date.today - 1),
+         checkin_date: nil,
+         due_date: Date.today + 6,
+         movie_id: movie.id,
+         customer_id: customer.id
+
+         expect(customer.movies_checked_out_count).must_equal start_count + 1
+
+      end
+
+      it "is decreased if a movie is checked in" do
+
+        Rental.create checkout_date: (Date.today - 1),
+         checkin_date: nil,
+         due_date: Date.today + 6,
+         movie_id: movie.id,
+         customer_id: customer.id
+
+        start_count = customer.movies_checked_out_count
+
+        # "Checking in" prior rental - should reduce start count
+        rental = customer.rentals.last
+        rental.checkin_date = Date.today
+        rental.save
+
+         expect(customer.movies_checked_out_count).must_equal start_count - 1
+      end
+    end
 
     ####  REVISE -
     # Anything that adjust after a rental

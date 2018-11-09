@@ -12,7 +12,7 @@ class Movie < ApplicationRecord
 
   def number_of_checked_out_movies
     # Might add a flag later for "active rentals"
-    return Rental.where(movie_id: self.id).length
+    return Rental.all.select{ |rental| rental.movie_id == self.id && rental.checkin_date.nil?}.length
   end
 
   def available_inventory

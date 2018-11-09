@@ -8,7 +8,6 @@ describe Movie do
     inventory: 2
   }
 
-
   describe "validations" do
     it "must be valid" do
       value(complete_movie).must_be :valid?
@@ -51,7 +50,6 @@ describe Movie do
       #Act
       binding.pry
       movie.rentals.customers << customer #add 1st customer to a movie's customer
-      binding.pry
       customers = movie.customers #customers = movie's customers
 
       #assert
@@ -97,22 +95,36 @@ describe Movie do
     end
 
     describe "available_inventory" do
-      it "correctly calculates the available_inventory" do
+      it "does not included checked in movies " do
         movie = Movie.create title: "What Dreams May Come",
           overview: "Very artsy movie",
           release_date: Date.today,
           inventory: 3
 
+        # Creating "Checked in" rental. Should not be included in reduced inventory
         Rental.create checkout_date: (Date.today - 1),
          checkin_date: Date.today,
          due_date: Date.today + 6,
          movie_id: movie.id,
          customer_id: customers(:cassy).id
 
-         # binding.pry
+         expect(movie.available_inventory).must_equal 3
+      end
+
+      it "is reduced if a movie is not checked in" do
+        movie = Movie.create title: "What Dreams May Come",
+          overview: "Very artsy movie",
+          release_date: Date.today,
+          inventory: 3
+
+        # Creating "Checked in" rental. Should not be included in reduced inventory
+        Rental.create checkout_date: (Date.today - 1),
+         checkin_date: nil,
+         due_date: Date.today + 6,
+         movie_id: movie.id,
+         customer_id: customers(:cassy).id
 
          expect(movie.available_inventory).must_equal 2
-
       end
     end
   end

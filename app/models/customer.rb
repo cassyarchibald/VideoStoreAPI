@@ -9,7 +9,7 @@ class Customer < ApplicationRecord
   # Calculate the total movies here and pass to controller
   def movies_checked_out_count
     # Maybe set status to show "active" rentals later
-    return Rental.where(customer_id: self.id).length
+    return Rental.all.select{ |rental| rental.customer_id == self.id && rental.checkin_date.nil?}.length
   end
 
   private
