@@ -40,10 +40,10 @@ describe Movie do
       result.must_equal false
       expect(complete_movie.errors).must_include "inventory"
     end
-  end # Validation end
+  end
 
   describe "relations" do
-    let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
+    let(:movie) { movies(:romantic) }
     let(:customer) { customers(:cassy) }
 
     it "has many customers through rental" do
@@ -65,31 +65,13 @@ describe Movie do
         rental.must_be_kind_of Rental
       end
     end
-  end # End of relations
+  end
 
   describe "custom logic" do
-    let(:movie) { movies(:romantic) } #romantic_movie is being initialized as --> { movies(:romantic) }
-    # Remove -
-      # Should be testing that after a rent
-        # post the available_inventory returned
-        # in the body keys is correct
-    # describe "reduce inventory" do
-    #   it "Reduces inventory by one if there is at least one item in inventory" do
-    #     start_inventory_count = movie.inventory
-    #     movie.reduce_inventory
-    #     expect(movie.inventory).must_equal start_inventory_count - 1
-    #   end
-    #
-    #   it "Returns false if inventory is 0" do
-    #     movie.inventory = 0
-    #     expect(movie.reduce_inventory).must_equal false
-    #   end
-    # end # End of reduce inventory
-
-
+    let(:movie) { movies(:romantic) }
     describe "number of checked out movies" do
       it "returns the number of movies that are currently checked out" do
-        movie = movies(:funny)
+        # movie = movies(:funny)
         expect(movie.number_of_checked_out_movies).must_equal Rental.where(movie_id: movie.id).length
       end
     end
