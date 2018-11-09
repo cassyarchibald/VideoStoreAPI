@@ -6,9 +6,7 @@ class Customer < ApplicationRecord
   has_many :movies, through: :rentals
   validates_presence_of :name, :address, :city, :state, :postal_code, :phone
 
-  # Calculate the total movies here and pass to controller
   def movies_checked_out_count
-    # Maybe set status to show "active" rentals later
     return Rental.all.select{ |rental| rental.customer_id == self.id && rental.checkin_date.nil?}.length
   end
 

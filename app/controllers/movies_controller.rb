@@ -12,7 +12,6 @@ class MoviesController < ApplicationController
       status: :not_found
     else
       # available_inventory = movie.available_inventory
-      # binding.pry
       render json: {
         # ok: true,
         # methods: :available_inventory,
