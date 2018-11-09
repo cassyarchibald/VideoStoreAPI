@@ -1,10 +1,12 @@
 class RentalsController < ApplicationController
 
   def checkout
-    rental = Rental.new(rental_params)
-
-
+    rental = Rental.create(rental_params)
+      # binding.pry 
+    # If it's able to be saved,
+    # We'll have the created_at value we need
     if rental.save
+      rental.set_checkout_values!
       render json: {
         ok: true,
         rental: rental.as_json(only: [ :customer_id, :movie_id ] )
@@ -22,7 +24,6 @@ class RentalsController < ApplicationController
     customer_id = params[:rental][:customer_id]
     rental = Rental.find_by(movie_id: movie_id, customer_id: customer_id)
     if rental.check_in!
-      # binding.pry
 
       render json: {
         ok: true,

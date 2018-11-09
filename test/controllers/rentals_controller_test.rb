@@ -2,15 +2,13 @@ require "test_helper"
 
 describe RentalsController do
   describe 'check-out' do
-    # Create for rental
-    let(:movie) { movies(:funny) } #romantic_movie is being initialized as --> { movies(:romantic) }
+    #
+    let(:movie) { movies(:funny) }
     let(:customer) {customers(:shelan) }
 
     let (:rental_hash) do
       {
         rental: {
-          checkout_date: Date.today,
-          due_date: Date.today + 7,
           movie_id: movies(:scary).id,
           customer_id: customers(:cassy).id
         }
@@ -27,16 +25,22 @@ describe RentalsController do
     end
 
     it "can create a new rental if given valid params" do
-      expect {
+
+      # rental = rentals(:pre_check_out_rental)
+
+        rental_hash = {
+          rental: {
+            movie_id: movies(:funny).id,
+            customer_id: customers(:cassy).id
+          }
+        }
+
         post checkout_path, params: rental_hash
-      }.must_change 'Rental.count', 1
-      
 
-      expect(Rental.last.checkout_date).must_equal rental_hash[:rental][:checkout_date]
-      expect(Rental.last.due_date).must_equal rental_hash[:rental][:due_date]
-      expect(Rental.last.customer_id).must_equal rental_hash[:rental][:customer_id]
-      expect(Rental.last.movie_id).must_equal rental_hash[:rental][:movie_id]
+        rental = Rental.find_by( movie_id: movies(:funny).id, customer_id: customers(:cassy).id, due_date: Date.today + 7, checkout_date: Date.today  )
 
+        expect(rental.checkout_date).must_equal Date.today
+        expect(rental.due_date).must_equal Date.today + 7
     end
 
     it "responds with an error for invalid params" do
@@ -66,19 +70,16 @@ describe RentalsController do
           }
         }
 
-        # Do a post request for a rental that has that movie's id
         post checkout_path, params: rental_hash
-        # Checking that available inventory was reduced
 
         expect(movie.available_inventory).must_equal start_count - 1
       end
 
       it "increases the number of movies the customer had checked out" do
 
-        # Testing in rental controller as route will only run in this controller
         movie = Movie.create(title: "test", overview: "test", release_date: Date.today, inventory: 3)
         customer = customers(:cassy)
-        # start_count = movie.customer.movies.length
+
         rental_hash = {
           rental: {
             checkout_date: Date.today,
@@ -88,7 +89,7 @@ describe RentalsController do
           }
         }
 
-        start_count = customer.movies.length
+        start_count = customer.movies_checked_out_count
 
         # Do a post request for a rental that has that movie's id
         post checkout_path, params: rental_hash
@@ -98,27 +99,8 @@ describe RentalsController do
 
       end
     end
-
-    # it "Does not allow removal from an empty inventory" do
-    #   # post check_out_path, params: rental_hash
-    #   movie = Movie.create(title: "test", overview: "test", release_date: Date.today, inventory: 0)
-    #
-    #   rental_hash = {
-    #     rental: {
-    #       checkout_date: Date.today,
-    #       due_date: Date.today + 7,
-    #       movie_id: movie.id,
-    #       customer_id: customers(:cassy).id
-    #     }
-    #   }
-    #
-    #   #Expect it will have errors
-    #   # # # HOW # # #
-    #   # Not sure how to test this
-    #   post checkout_path, params: rental_hash
-    #
-    # end
   end
+
   describe 'check-in' do
     let(:rental) {rentals(:check_out_rental)}
 
@@ -137,14 +119,6 @@ describe RentalsController do
 
       rental.reload
       expect(rental.checkin_date).must_equal Date.today
-
     end
   end
 end
-
-
-
-# def check_in!
-#   self.checkin_date = Date.today
-#   self.save
-# end

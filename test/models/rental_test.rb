@@ -19,7 +19,6 @@ describe Rental do
       movie = Movie.create(title: "test", overview: "test", release_date: Date.today, inventory: 0)
       rental = Rental.new(movie_id: movie.id, customer_id: Customer.first.id)
       result = rental.valid?
-      binding.pry
       result.must_equal false
       expect(rental.errors.messages[:available_inventory_of_movie][0]).must_include "Must be greater than 0"
     end
@@ -63,6 +62,7 @@ describe Rental do
         customer_id: customers(:cassy).id
 
       rental.save
+      rental.set_checkout_values!
 
       expect(rental.checkout_date).must_equal rental.created_at.to_date
 
@@ -74,8 +74,22 @@ describe Rental do
         customer_id: customers(:cassy).id
 
       rental.save
+      rental.set_checkout_values!
 
       expect(rental.due_date).must_equal rental.checkout_date + 7
+
+    end
+
+    it "set checkout values creates a checkout date and due date" do
+      rental = Rental.new movie_id: movies(:funny).id,
+        customer_id: customers(:cassy).id
+
+      rental.save
+
+      rental.set_checkout_values!
+      # binding.pry
+      expect(rental.due_date).must_equal Date.today + 7
+      expect(rental.checkout_date).must_equal Date.today
 
     end
   end
@@ -88,7 +102,7 @@ describe Rental do
       rental.save
 
       expect(rental.checkin_date).must_equal nil
-      
+
       rental.check_in!
 
       expect(rental.checkin_date).must_equal Date.today
